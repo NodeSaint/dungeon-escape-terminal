@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
   <title>Dungeon Escape</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <div id="game-container">
@@ -24,6 +25,54 @@
       <div id="log-content"></div>
     </div>
 
+    <!-- Mobile Stats Bar (shown when side panel is hidden) -->
+    <div id="mobile-stats-bar"></div>
+
+    <!-- Mobile Controls -->
+    <div id="mobile-controls">
+      <div id="mobile-dpad">
+        <button class="mobile-btn dpad-up" data-dir="up" aria-label="Move up"></button>
+        <button class="mobile-btn dpad-left" data-dir="left" aria-label="Move left"></button>
+        <button class="mobile-btn dpad-center" data-action="wait" aria-label="Wait"></button>
+        <button class="mobile-btn dpad-right" data-dir="right" aria-label="Move right"></button>
+        <button class="mobile-btn dpad-down" data-dir="down" aria-label="Move down"></button>
+      </div>
+      <div id="mobile-actions"></div>
+    </div>
+
+    <!-- Settings Button -->
+    <button id="settings-btn" aria-label="Settings"></button>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel">
+      <h3>Settings</h3>
+      <div class="setting-row">
+        <label for="setting-fontsize">Font Size</label>
+        <input type="range" id="setting-fontsize" min="8" max="24" value="16">
+        <span id="fontsize-value">16</span>
+      </div>
+      <div class="setting-row">
+        <label for="setting-controls">Controls</label>
+        <select id="setting-controls">
+          <option value="both">D-Pad + Swipe</option>
+          <option value="dpad">D-Pad Only</option>
+          <option value="swipe">Swipe Only</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label for="setting-layout">Layout</label>
+        <select id="setting-layout">
+          <option value="default">D-Pad Left</option>
+          <option value="swapped">D-Pad Right</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label for="setting-vibration">Vibration</label>
+        <input type="checkbox" id="setting-vibration" checked>
+      </div>
+      <button id="settings-close" class="mobile-btn">Close</button>
+    </div>
+
     <!-- Title Screen -->
     <div id="title-screen" class="overlay">
       <pre id="title-art">
@@ -40,7 +89,8 @@
                   |_|
       </pre>
       <p class="subtitle">A Roguelike Dungeon Crawler</p>
-      <p class="prompt">[ENTER] New Game</p>
+      <p class="prompt" id="start-prompt">[ENTER] New Game</p>
+      <button id="mobile-start-btn" class="mobile-btn mobile-start-btn">New Game</button>
       <div class="controls-help">
         <p>WASD/Arrows: Move &nbsp;|&nbsp; G: Pickup &nbsp;|&nbsp; I: Inventory</p>
         <p>&gt;: Descend stairs &nbsp;|&nbsp; Space: Wait</p>
@@ -64,5 +114,6 @@
   </div>
 
   <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/mobile-controls.js"></script>
 </body>
 </html>

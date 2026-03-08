@@ -685,8 +685,20 @@ document.addEventListener('keydown', (e) => {
   render();
 });
 
+// Expose for mobile controls module
+window.game = game;
+window.render = render;
+window.setFontSize = function(size) {
+  cellW = Math.round(size * 0.7);
+  cellH = size;
+  render();
+};
+window.getCellSize = function() { return { cellW, cellH }; };
+
 // Init
 window.addEventListener('resize', () => { resizeCanvas(); render(); });
 resizeCanvas();
 render();
-canvas.focus();
+
+// Don't auto-focus canvas on touch devices (interferes with button taps)
+if (!('ontouchstart' in window)) canvas.focus();

@@ -1,0 +1,415 @@
+/* ===== Mobile Controls & Responsive ===== */
+
+/* Prevent iOS bounce and pull-to-refresh */
+html, body {
+  overscroll-behavior: none;
+  -webkit-touch-callout: none;
+}
+
+/* Mobile stats bar — inline HP/MP above controls */
+#mobile-stats-bar {
+  display: none;
+  grid-column: 1 / -1;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  padding: 4px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #aaa;
+}
+
+.mobile-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mobile-bar-label {
+  color: #888;
+  min-width: 22px;
+  font-size: 11px;
+}
+
+.mobile-bar-track {
+  flex: 1;
+  height: 10px;
+  background: #222;
+  border: 1px solid #333;
+  min-width: 40px;
+  max-width: 120px;
+}
+
+.mobile-bar-fill {
+  height: 100%;
+}
+
+.mobile-bar-hp { background: #cc2222; }
+.mobile-bar-mp { background: #2244cc; }
+.mobile-bar-text {
+  font-size: 11px;
+  color: #ccc;
+}
+
+/* Mobile controls container */
+#mobile-controls {
+  display: none;
+  grid-column: 1 / -1;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  padding: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+/* D-pad */
+#mobile-dpad {
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.dpad-up    { grid-column: 2; grid-row: 1; }
+.dpad-left  { grid-column: 1; grid-row: 2; }
+.dpad-center{ grid-column: 2; grid-row: 2; }
+.dpad-right { grid-column: 3; grid-row: 2; }
+.dpad-down  { grid-column: 2; grid-row: 3; }
+
+/* Action buttons */
+#mobile-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  flex: 1;
+  max-width: 240px;
+}
+
+/* Base mobile button */
+.mobile-btn {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #ccc;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 13px;
+  min-height: 44px;
+  border-radius: 4px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  text-align: center;
+  line-height: 1.2;
+  transition: background 0.08s, border-color 0.08s;
+}
+
+.mobile-btn:active {
+  background: #333;
+  border-color: #888;
+}
+
+.mobile-btn.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* D-pad arrows */
+.dpad-up::after    { content: '▲'; font-size: 20px; }
+.dpad-down::after  { content: '▼'; font-size: 20px; }
+.dpad-left::after  { content: '◀'; font-size: 20px; }
+.dpad-right::after { content: '▶'; font-size: 20px; }
+.dpad-center::after { content: '·'; font-size: 24px; color: #666; }
+
+/* Action button color variants */
+.action-attack  { border-color: #cc8800; color: #cc8800; }
+.action-defend  { border-color: #4488ff; color: #4488ff; }
+.action-flee    { border-color: #44cc44; color: #44cc44; }
+.action-potion  { border-color: #cc44ff; color: #cc44ff; }
+.action-pickup  { border-color: #88ff88; color: #88ff88; }
+.action-stairs  { border-color: #00cccc; color: #00cccc; }
+.action-inventory { border-color: #44aacc; color: #44aacc; }
+.action-wait    { border-color: #888; color: #888; }
+.action-use     { border-color: #88ff88; color: #88ff88; }
+.action-drop    { border-color: #ff6644; color: #ff6644; }
+.action-close   { border-color: #aaa; color: #aaa; }
+.action-start   { border-color: #44cc44; color: #44cc44; font-size: 16px; grid-column: 1 / -1; min-height: 56px; }
+.action-newgame { border-color: #44cc44; color: #44cc44; font-size: 16px; grid-column: 1 / -1; min-height: 56px; }
+
+.action-attack:active  { background: #331a00; }
+.action-defend:active  { background: #0a1a33; }
+.action-flee:active    { background: #0a2a0a; }
+.action-potion:active  { background: #2a0a33; }
+.action-pickup:active  { background: #0a2a0a; }
+.action-stairs:active  { background: #002a2a; }
+
+/* Stairs glow when available */
+.action-stairs.available {
+  animation: stairsGlow 1.5s infinite;
+}
+@keyframes stairsGlow {
+  0%, 100% { box-shadow: 0 0 4px #00cccc44; }
+  50% { box-shadow: 0 0 12px #00cccc88; }
+}
+
+/* Settings button */
+#settings-btn {
+  display: none;
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 50%;
+  color: #888;
+  font-size: 18px;
+  z-index: 200;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  padding: 0;
+  line-height: 36px;
+  text-align: center;
+}
+#settings-btn::after { content: '⚙'; }
+#settings-btn:active { background: #333; }
+
+/* Settings panel */
+#settings-panel {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  max-width: 85vw;
+  height: 100vh;
+  background: #111;
+  border-left: 2px solid #444;
+  z-index: 300;
+  padding: 20px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  color: #ccc;
+}
+
+#settings-panel h3 {
+  color: #cc8800;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.setting-row {
+  margin-bottom: 16px;
+}
+
+.setting-row label {
+  display: block;
+  color: #888;
+  font-size: 12px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.setting-row input[type="range"] {
+  width: 100%;
+  accent-color: #cc8800;
+}
+
+.setting-row select {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.setting-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #cc8800;
+}
+
+#settings-close {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* Settings backdrop */
+#settings-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 250;
+}
+
+/* Mobile start button (hidden on desktop) */
+.mobile-start-btn {
+  display: none !important;
+  width: 80%;
+  max-width: 250px;
+  margin: 10px auto;
+  font-size: 16px;
+  min-height: 48px;
+  border-color: #44cc44;
+  color: #44cc44;
+}
+
+/* ===== RESPONSIVE: Mobile portrait ===== */
+@media (max-width: 768px) {
+  #game-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto auto auto;
+  }
+
+  #game-canvas {
+    grid-row: 2;
+    grid-column: 1;
+    min-height: 200px;
+  }
+
+  #stats-panel, #minimap-panel {
+    display: none;
+  }
+
+  #mobile-stats-bar {
+    display: block;
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  #mobile-controls {
+    display: flex;
+    grid-row: 4;
+    grid-column: 1;
+  }
+
+  #log-panel {
+    grid-row: 3;
+    grid-column: 1;
+    max-height: 80px;
+    min-height: 50px;
+  }
+
+  #settings-btn {
+    display: block;
+  }
+
+  /* Title screen adjustments */
+  #title-art {
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+  }
+
+  .overlay {
+    min-width: unset !important;
+    width: 92vw;
+    max-width: 400px;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 16px !important;
+  }
+
+  .controls-help {
+    font-size: 10px !important;
+  }
+
+  /* Show mobile start button, hide keyboard prompt */
+  .mobile-start-btn {
+    display: flex !important;
+  }
+
+  #start-prompt {
+    display: none;
+  }
+
+  /* Combat overlay — don't show keyboard hints on mobile */
+  .combat-key span {
+    font-size: 11px;
+  }
+}
+
+/* ===== RESPONSIVE: Mobile landscape ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  #game-container {
+    grid-template-columns: 1fr 200px;
+    grid-template-rows: 1fr auto;
+  }
+
+  #game-canvas {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  #mobile-stats-bar {
+    display: none;
+  }
+
+  #mobile-controls {
+    display: flex;
+    grid-row: 1;
+    grid-column: 2;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px 8px;
+  }
+
+  #mobile-dpad {
+    grid-template-columns: 40px 40px 40px;
+    grid-template-rows: 40px 40px 40px;
+    margin-bottom: 8px;
+  }
+
+  #mobile-actions {
+    max-width: 180px;
+  }
+
+  #log-panel {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    max-height: 60px;
+  }
+
+  .overlay {
+    max-height: 90vh;
+  }
+}
+
+/* ===== Swapped layout ===== */
+body.controls-swapped #mobile-controls {
+  flex-direction: row-reverse;
+}
+
+/* ===== Swipe-only mode: hide dpad ===== */
+body.controls-swipe-only #mobile-dpad {
+  display: none;
+}
+
+body.controls-swipe-only #mobile-actions {
+  max-width: 100%;
+}
+
+/* ===== D-pad only mode ===== */
+body.controls-dpad-only #mobile-controls {
+  justify-content: center;
+}
