@@ -1,7 +1,7 @@
 // Self-contained web version of Dungeon Escape
 // Uses rot-js from CDN for dungeon generation and FOV
 
-import ROT from 'https://cdn.jsdelivr.net/npm/rot-js@2.2.0/+esm';
+import * as ROT from 'https://cdn.jsdelivr.net/npm/rot-js@2.2.0/+esm';
 
 // === CONSTANTS ===
 const MAP_WIDTH = 80;
