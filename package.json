@@ -9,7 +9,13 @@
     "web": "cp -r src/core docs/js/ && echo 'Web version ready — open docs/index.html'",
     "play": "node src/terminal/index.js"
   },
-  "keywords": ["roguelike", "dungeon", "terminal", "ascii", "game"],
+  "keywords": [
+    "roguelike",
+    "dungeon",
+    "terminal",
+    "ascii",
+    "game"
+  ],
   "license": "MIT",
   "dependencies": {
     "blessed": "^0.1.81",
