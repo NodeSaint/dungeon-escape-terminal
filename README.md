@@ -17,11 +17,11 @@ A roguelike dungeon crawler with randomly generated rooms, ASCII monsters, and t
 
 ## Play Now
 
-**Browser:** [Play on GitHub Pages](https://yourusername.github.io/dungeon-escape-terminal/)
+**Browser:** [Play on GitHub Pages](https://nodesaint.github.io/dungeon-escape-terminal/)
 
 **Terminal:**
 ```bash
-git clone https://github.com/yourusername/dungeon-escape-terminal.git
+git clone https://github.com/NodeSaint/dungeon-escape-terminal.git
 cd dungeon-escape-terminal
 npm install
 npm start
